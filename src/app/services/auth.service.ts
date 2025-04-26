@@ -47,3 +47,24 @@ register(user: User, password: string): Observable<any> {
   return this.http.post<any>(`${this.apiUrl}/auth/register`, { ...user, password });
 }
 
+// Logout method
+logout(): void {
+  // Clear user info and token from localStorage
+  localStorage.removeItem('currentUser');
+  localStorage.removeItem('token');
+  // Set current user to null in the app
+  this.currentUserSubject.next(null);
+}
+
+// Get the currently logged-in user
+getCurrentUser(): User | null {
+  // Return the latest value of currentUserSubject (can be null if logged out)
+  return this.currentUserSubject.value;
+}
+
+// Get the saved authentication token
+getToken(): string | null {
+  // Return the JWT token from localStorage
+  return localStorage.getItem('token');
+}
+}
