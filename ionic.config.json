@@ -1,0 +1,7 @@
+{
+  "name": "companion-care",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
