@@ -61,3 +61,15 @@ export class AddPetPage implements OnInit {
     });
     await actionSheet.present();
   }
+
+   // Launches the camera or photo library to capture/select an image
+   async takePicture(source: CameraSource) {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.DataUrl, // Get image as a base64 data URL
+        source
+      });
+
+      this.previewUrl = image.dataUrl; // Set preview for UI
