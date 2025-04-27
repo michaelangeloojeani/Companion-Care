@@ -38,3 +38,9 @@ export class LoginPage implements OnInit {
    async onSubmit() {
      if (this.loginForm.invalid) { // If the form is invalid, do nothing
        return;
+
+         // Show loading indicator while logging in
+    const loading = await this.loadingController.create({
+      message: 'Logging in...'
+    });
+    await loading.present();
