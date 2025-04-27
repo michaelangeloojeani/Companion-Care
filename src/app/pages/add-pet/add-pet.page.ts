@@ -87,3 +87,42 @@ export class AddPetPage implements OnInit {
     if (this.petForm.invalid) {
       return; // Stop if form is invalid
     }
+
+    const loading = await this.loadingController.create({
+      message: 'Saving pet...'
+    });
+    await loading.present();
+
+    const pet = this.petForm.value;
+
+    // Call the service to add the pet, passing pet details and optional image
+    this.petService.addPet(pet, this.selectedImage).subscribe(
+      async (response) => {
+        loading.dismiss();
+
+        // Show success message
+        const toast = await this.toastController.create({
+          message: 'Pet added successfully!',
+          duration: 2000,
+          color: 'success'
+        });
+        await toast.present();
+
+        this.router.navigateByUrl('/dashboard'); // Navigate to dashboard
+      },
+      async (error) => {
+        loading.dismiss();
+
+        // Show error message
+        const toast = await this.toastController.create({
+          message: 'Error adding pet. Please try again.',
+          duration: 2000,
+          color: 'danger'
+        });
+        await toast.present();
+
+        console.error('Error adding pet', error);
+      }
+    );
+  }
+}
