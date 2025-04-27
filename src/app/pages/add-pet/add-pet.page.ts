@@ -9,6 +9,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   selector: 'app-add-pet',
   templateUrl: './add-pet.page.html',
   styleUrls: ['./add-pet.page.scss'],
+  standalone: true,
 })
 export class AddPetPage implements OnInit {
   petForm: FormGroup; // Form group to manage pet form inputs

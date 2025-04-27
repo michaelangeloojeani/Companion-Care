@@ -8,6 +8,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  standalone: true,
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup; // Use '!' to tell TypeScript it will be initialized later

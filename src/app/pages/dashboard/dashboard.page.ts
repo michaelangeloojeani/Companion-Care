@@ -8,6 +8,7 @@ import { Pet } from '../../models/pet.model';
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
+  standalone: true,
 })
 export class DashboardPage implements OnInit {
   pets: any[] = [];

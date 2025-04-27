@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
@@ -10,38 +9,30 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
+    loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule)
+    loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule),
+    loadComponent: () => import('./pages/dashboard/dashboard.page').then(m => m.DashboardPage),
     canActivate: [AuthGuard]
   },
   {
     path: 'pet-profile/:id',
-    loadChildren: () => import('./pages/pet-profile/pet-profile.module').then(m => m.PetProfilePageModule),
+    loadComponent: () => import('./pages/pet-profile/pet-profile.page').then(m => m.PetProfilePage),
     canActivate: [AuthGuard]
   },
   {
     path: 'add-pet',
-    loadChildren: () => import('./pages/add-pet/add-pet.module').then(m => m.AddPetPageModule),
+    loadComponent: () => import('./pages/add-pet/add-pet.page').then(m => m.AddPetPage),
     canActivate: [AuthGuard]
   },
   {
     path: 'user-profile',
-    loadChildren: () => import('./pages/user-profile/user-profile.module').then(m => m.UserProfilePageModule),
+    loadComponent: () => import('./pages/user-profile/user-profile.page').then(m => m.UserProfilePage),
     canActivate: [AuthGuard]
   }
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
