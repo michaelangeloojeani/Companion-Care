@@ -11,3 +11,11 @@ dotenv.config()
 const authRoutes = require('./routes/auth');
 const petRoutes = require('./routes/pets');
 const reminderRoutes = require('./routes/reminders');
+
+// Initialize app
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
