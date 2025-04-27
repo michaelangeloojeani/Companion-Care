@@ -1,38 +1,47 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/inbox',
-    pathMatch: 'full',
-  },
-  {
-    path: 'folder/:id',
-    loadComponent: () =>
-      import('./folder/folder.page').then((m) => m.FolderPage),
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login.page').then( m => m.LoginPage)
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/register/register.page').then( m => m.RegisterPage)
+    loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterPageModule)
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'pet-profile',
-    loadComponent: () => import('./pages/pet-profile/pet-profile.page').then( m => m.PetProfilePage)
+    path: 'pet-profile/:id',
+    loadChildren: () => import('./pages/pet-profile/pet-profile.module').then(m => m.PetProfilePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'add-pet',
-    loadComponent: () => import('./pages/add-pet/add-pet.page').then( m => m.AddPetPage)
+    loadChildren: () => import('./pages/add-pet/add-pet.module').then(m => m.AddPetPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'user-profile',
-    loadComponent: () => import('./pages/user-profile/user-profile.page').then( m => m.UserProfilePage)
-  },
+    loadChildren: () => import('./pages/user-profile/user-profile.module').then(m => m.UserProfilePageModule),
+    canActivate: [AuthGuard]
+  }
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
