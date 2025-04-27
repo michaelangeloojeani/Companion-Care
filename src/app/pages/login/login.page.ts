@@ -27,3 +27,14 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required]] // Password is required
     });
   }
+
+   // Getter for email control to simplify access in the template
+   get email() { return this.loginForm.get('email'); }
+
+   // Getter for password control to simplify access in the template
+   get password() { return this.loginForm.get('password'); }
+ 
+   // Handles form submission when the user attempts to login
+   async onSubmit() {
+     if (this.loginForm.invalid) { // If the form is invalid, do nothing
+       return;
