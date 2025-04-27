@@ -1,20 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+import { PetService } from '../../services/pet.service';
+import { ReminderService } from '../../services/reminder.service';
+import { Pet } from '../../models/pet.model';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class DashboardPage implements OnInit {
-
-  constructor() { }
+  pets: any[] = [];
+  
+  constructor(
+    private petService: PetService,
+    private reminderService: ReminderService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    // Nothing here - we'll load in ionViewWillEnter
   }
 
-}
+  ionViewWillEnter() {
+    this.loadPets();
+  }
+
+  loadPets() {
+    this.petService.getAllPets().subscribe(
+      (pets: Pet[]) => {
+        this.pets = pets;
