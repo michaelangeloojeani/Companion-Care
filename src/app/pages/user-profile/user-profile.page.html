@@ -1,13 +1,69 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>user-profile</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>User Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user-profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding" *ngIf="user">
+  <div class="profile-header">
+    <div class="user-avatar">
+      <ion-avatar>
+        <img src="assets/images/user-placeholder.png" alt="User Avatar">
+      </ion-avatar>
+    </div>
+    <h1>{{ user.name }}</h1>
+  </div>
+
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label>
+        <h2>EMAIL</h2>
+        <p>{{ user.email }}</p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>
+        <h2>PETS REGISTERED</h2>
+        <p>{{ petsCount }}</p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>
+        <h2>GENDER</h2>
+        <p>{{ user.gender || 'Not specified' }}</p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>
+        <h2>DATE OF BIRTH</h2>
+        <p>{{ user.dob ? (user.dob | date:'MMM d, y') : 'Not specified' }}</p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>
+        <h2>COUNTRY</h2>
+        <p>{{ user.country || 'Not specified' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="editProfile()" class="ion-margin-top">
+    Edit Profile
+  </ion-button>
+  
+  <ion-button expand="block" color="medium" (click)="changePassword()" class="ion-margin-top">
+    Change Password
+  </ion-button>
 </ion-content>
