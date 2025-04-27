@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -18,21 +18,21 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard.page').then(m => m.DashboardPage),
-    canActivate: [AuthGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'pet-profile/:id',
     loadComponent: () => import('./pages/pet-profile/pet-profile.page').then(m => m.PetProfilePage),
-    canActivate: [AuthGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'add-pet',
     loadComponent: () => import('./pages/add-pet/add-pet.page').then(m => m.AddPetPage),
-    canActivate: [AuthGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'user-profile',
     loadComponent: () => import('./pages/user-profile/user-profile.page').then(m => m.UserProfilePage),
-    canActivate: [AuthGuard]
+    canActivate: [authGuard]
   }
 ];

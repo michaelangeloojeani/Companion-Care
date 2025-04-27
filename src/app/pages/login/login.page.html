@@ -15,17 +15,17 @@
         <ion-label position="floating">Email</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
-      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
-        <div *ngIf="email.errors?.required">Email is required</div>
-        <div *ngIf="email.errors?.email">Please enter a valid email</div>
+      <div *ngIf="email && email.invalid && (email.dirty || email.touched)" class="error-message">
+        <div *ngIf="email.errors && email.errors['required']">Email is required</div>
+        <div *ngIf="email.errors && email.errors['email']">Please enter a valid email</div>
       </div>
       
       <ion-item>
         <ion-label position="floating">Password</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
-      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
-        <div *ngIf="password.errors?.required">Password is required</div>
+      <div *ngIf="password && password.invalid && (password.dirty || password.touched)" class="error-message">
+        <div *ngIf="password.errors && password.errors['required']">Password is required</div>
       </div>
       
       <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">

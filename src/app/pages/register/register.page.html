@@ -1,91 +1,64 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </<ion-header>
-      <ion-toolbar color="primary">
-        <ion-buttons slot="start">
-          <ion-back-button defaultHref="/login"></ion-back-button>
-        </ion-buttons>
-        <ion-title>Register</ion-title>
-      </ion-toolbar>
-    </ion-header>
+<ion-content class="ion-padding">
+  <div class="register-container">
+    <h2>Create Your Account</h2>
     
-    <ion-content class="ion-padding">
-      <div class="register-container">
-        <h2>Create Your Account</h2>
-        
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <ion-item>
-            <ion-label position="floating">Name</ion-label>
-            <ion-input type="text" formControlName="name"></ion-input>
-          </ion-item>
-          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
-            <div *ngIf="name.errors?.required">Name is required</div>
-          </div>
-          
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" formControlName="email"></ion-input>
-          </ion-item>
-          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
-            <div *ngIf="email.errors?.required">Email is required</div>
-            <div *ngIf="email.errors?.email">Please enter a valid email</div>
-          </div>
-          
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-          </ion-item>
-          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
-            <div *ngIf="password.errors?.required">Password is required</div>
-            <div *ngIf="password.errors?.minlength">Password must be at least 6 characters long</div>
-          </div>
-          
-          <ion-item>
-            <ion-label position="floating">Confirm Password</ion-label>
-            <ion-input type="password" formControlName="confirmPassword"></ion-input>
-          </ion-item>
-          <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="error-message">
-            <div *ngIf="confirmPassword.errors?.required">Confirm Password is required</div>
-            <div *ngIf="confirmPassword.errors?.passwordMismatch">Passwords do not match</div>
-          </div>
-          
-          <ion-item>
-            <ion-label position="floating">Gender (Optional)</ion-label>
-            <ion-select formControlName="gender">
-              <ion-select-option value="Male">Male</ion-select-option>
-              <ion-select-option value="Female">Female</ion-select-option>
-              <ion-select-option value="Other">Other</ion-select-option>
-              <ion-select-option value="Prefer not to say">Prefer not to say</ion-select-option>
-            </ion-select>
-          </ion-item>
-          
-          <ion-item>
-            <ion-label position="floating">Date of Birth (Optional)</ion-label>
-            <ion-datetime displayFormat="MMM DD, YYYY" formControlName="dob"></ion-datetime>
-          </ion-item>
-          
-          <ion-item>
-            <ion-label position="floating">Country (Optional)</ion-label>
-            <ion-input type="text" formControlName="country"></ion-input>
-          </ion-item>
-          
-          <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" class="ion-margin-top">
-            Register
-          </ion-button>
-          
-          <div class="login-link">
-            <a (click)="goToLogin()">Already have an account? Login</a>
-          </div>
-        </form>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Gender (Optional)</ion-label>
+        <ion-select formControlName="gender">
+          <ion-select-option value="Male">Male</ion-select-option>
+          <ion-select-option value="Female">Female</ion-select-option>
+          <ion-select-option value="Other">Other</ion-select-option>
+          <ion-select-option value="Prefer not to say">Prefer not to say</ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Date of Birth (Optional)</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY" formControlName="dob"></ion-datetime>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Country (Optional)</ion-label>
+        <ion-input type="text" formControlName="country"></ion-input>
+      </ion-item>
+      
+      <ion-button expand="block" type="submit" [disabled]="registerForm.invalid" class="ion-margin-top">
+        Register
+      </ion-button>
+      
+      <div class="login-link">
+        <a (click)="goToLogin()">Already have an account? Login</a>
       </div>
-    </ion-content>-toolbar>
-  </ion-header>
+    </form>
+  </div>
 </ion-content>

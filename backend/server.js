@@ -8,9 +8,10 @@ const path = require('path');
 dotenv.config()
 
 
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./middleware/auth');
 const petRoutes = require('./routes/pets');
-const reminderRoutes = require('./routes/reminders');
+const reminderRoutes = require('./routes/reminder');
+const userRoutes = require('./routes/users');
 
 // Initialize app
 const app = express();
@@ -31,8 +32,8 @@ mongoose.connect(process.env.MONGODB_URI, {
   // Routes
   app.use('/api/auth', authRoutes);
   app.use('/api/pets', petRoutes);
-  app.use('/api/reminders', reminderRoutes);
-
+  app.use('/api/reminder', reminderRoutes);
+app.use('/api/users', userRoutes);
   // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
