@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoadingController, ToastController, ActionSheetController } from '@ionic/angular';
+import { PetService } from '../../services/pet.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-add-pet',
   templateUrl: './add-pet.page.html',
   styleUrls: ['./add-pet.page.scss'],
-  standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class AddPetPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+  petForm: FormGroup; // Form group to manage pet form inputs
+  previewUrl: string | null = null; // To show image preview before submitting
+  selectedImage: Blob | null = null; // Holds the selected or taken image as a Blob
