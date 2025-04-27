@@ -23,3 +23,15 @@ export class AddPetPage implements OnInit {
     private toastController: ToastController,
     private actionSheetController: ActionSheetController
   ) { }
+
+  ngOnInit() {
+    // Initialize the pet form with form controls and validators
+    this.petForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      species: ['', [Validators.required]],
+      breed: [''],
+      gender: [''],
+      dob: [''],
+      weight: ['']
+    });
+  }
