@@ -44,3 +44,23 @@ export class LoginPage implements OnInit {
       message: 'Logging in...'
     });
     await loading.present();
+
+      // Call the AuthService to attempt login with email and password
+      this.authService.login(this.email.value, this.password.value)
+      .subscribe(
+        async () => {
+          loading.dismiss(); // Dismiss loading indicator on success
+          this.router.navigateByUrl('/dashboard'); // Navigate to the dashboard on success
+        },
+        async (error) => {
+          loading.dismiss(); // Dismiss loading indicator on error
+          // Show alert with error message if login fails
+          const alert = await this.alertController.create({
+            header: 'Login Failed',
+            message: error?.error?.message || 'Please check your credentials', // Default error message
+            buttons: ['OK'] // 'OK' button to dismiss the alert
+          });
+          await alert.present();
+        }
+      );
+  }
