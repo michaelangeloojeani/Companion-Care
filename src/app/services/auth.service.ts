@@ -22,6 +22,13 @@ constructor(private http: HttpClient) {
     this.currentUserSubject.next(JSON.parse(storedUser));
   }
 }
+private getHeaders() {
+  const token = this.getToken();
+  return {
+    Authorization: `Bearer ${token}`
+  };
+}
+
 
 // Login method
 login(email: string, password: string): Observable<any> {
@@ -66,5 +73,15 @@ getCurrentUser(): User | null {
 getToken(): string | null {
   // Return the JWT token from localStorage
   return localStorage.getItem('token');
+}
+
+updateUser(user: User): Observable<User> {
+  return this.http.put<User>(`${this.apiUrl}/users/profile`, user, { headers: this.getHeaders() });
+}
+
+changePassword(currentPassword: string, newPassword: string): Observable<any> {
+  return this.http.put<any>(`${this.apiUrl}/users/password`, 
+    { currentPassword, newPassword }, 
+    { headers: this.getHeaders() });
 }
 }
