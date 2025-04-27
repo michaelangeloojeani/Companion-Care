@@ -53,3 +53,25 @@ export class DashboardPage implements OnInit {
       }
     );
   }
+
+  formatReminderDate(date: Date): string {
+    // Format the date as needed, e.g., "TODAY AT 2:30PM" or "JUNE 12 AT 3:15PM"
+    const now = new Date();
+    const isToday = date.getDate() === now.getDate() && 
+                    date.getMonth() === now.getMonth() && 
+                    date.getFullYear() === now.getFullYear();
+    
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const timeString = `${formattedHours}:${formattedMinutes}${ampm}`;
+    
+    if (isToday) {
+      return `TODAY AT ${timeString}`;
+    } else {
+      const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+      return `${months[date.getMonth()]} ${date.getDate()} AT ${timeString}`;
+    }
+  }
