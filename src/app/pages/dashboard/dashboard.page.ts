@@ -55,7 +55,7 @@ export class DashboardPage implements OnInit {
   }
 
   formatReminderDate(date: Date): string {
-    // Format the date as needed, e.g., "TODAY AT 2:30PM" or "JUNE 12 AT 3:15PM"
+    // Format the date 
     const now = new Date();
     const isToday = date.getDate() === now.getDate() && 
                     date.getMonth() === now.getMonth() && 
@@ -75,3 +75,12 @@ export class DashboardPage implements OnInit {
       return `${months[date.getMonth()]} ${date.getDate()} AT ${timeString}`;
     }
   }
+
+  goToPetProfile(petId: string) {
+    this.router.navigate(['/pet-profile', petId]);
+  }
+
+  goToAddPet() {
+    this.router.navigate(['/add-pet']);
+  }
+}
