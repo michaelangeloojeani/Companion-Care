@@ -32,3 +32,9 @@ mongoose.connect(process.env.MONGODB_URI, {
   app.use('/api/auth', authRoutes);
   app.use('/api/pets', petRoutes);
   app.use('/api/reminders', reminderRoutes);
+
+  // Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
