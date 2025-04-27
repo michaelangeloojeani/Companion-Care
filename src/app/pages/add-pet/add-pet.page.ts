@@ -35,3 +35,29 @@ export class AddPetPage implements OnInit {
       weight: ['']
     });
   }
+
+  // Opens an action sheet for the user to select an image source
+  async selectImage() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Select Image Source',
+      buttons: [
+        {
+          text: 'Take Photo',
+          handler: () => {
+            this.takePicture(CameraSource.Camera);
+          }
+        },
+        {
+          text: 'Choose from Gallery',
+          handler: () => {
+            this.takePicture(CameraSource.Photos);
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+    await actionSheet.present();
+  }
