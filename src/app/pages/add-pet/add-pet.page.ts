@@ -73,3 +73,17 @@ export class AddPetPage implements OnInit {
       });
 
       this.previewUrl = image.dataUrl; // Set preview for UI
+
+      // Convert the base64 image to a Blob object
+      const response = await fetch(image.dataUrl);
+      this.selectedImage = await response.blob();
+    } catch (error) {
+      console.error('Error taking photo', error);
+    }
+  }
+
+  // Submits the form to add a new pet
+  async onSubmit() {
+    if (this.petForm.invalid) {
+      return; // Stop if form is invalid
+    }
