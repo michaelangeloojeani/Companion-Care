@@ -30,3 +30,26 @@ export class DashboardPage implements OnInit {
     this.petService.getAllPets().subscribe(
       (pets: Pet[]) => {
         this.pets = pets;
+
+         // For each pet, get upcoming reminder
+         this.pets.forEach(pet => {
+          this.reminderService.getPetReminders(pet.id).subscribe(
+            reminders => {
+              const upcomingReminders = reminders
+                .filter(r => !r.isComplete && new Date(r.dateTime) > new Date())
+                .sort((a, b) => new Date(a.dateTime).getTime() - new Date(b.dateTime).getTime());
+              
+              if (upcomingReminders.length > 0) {
+                const nextReminder = upcomingReminders[0];
+                const reminderDate = new Date(nextReminder.dateTime);
+                pet.upcomingReminder = `${nextReminder.title} ${this.formatReminderDate(reminderDate)}`;
+              }
+            }
+          );
+        });
+      },
+      error => {
+        console.error('Error loading pets', error);
+      }
+    );
+  }
