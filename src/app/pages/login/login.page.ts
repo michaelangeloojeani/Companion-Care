@@ -10,7 +10,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  loginForm: FormGroup; // Declare the login form group to handle form validation
+  loginForm!: FormGroup; // Use '!' to tell TypeScript it will be initialized later
 
   constructor(
     private formBuilder: FormBuilder, // FormBuilder helps to create form controls
@@ -28,39 +28,43 @@ export class LoginPage implements OnInit {
     });
   }
 
-   // Getter for email control to simplify access in the template
-   get email() { return this.loginForm.get('email'); }
+  // Getter for email control to simplify access in the template
+  get email() { return this.loginForm.get('email'); }
 
-   // Getter for password control to simplify access in the template
-   get password() { return this.loginForm.get('password'); }
- 
-   // Handles form submission when the user attempts to login
-   async onSubmit() {
-     if (this.loginForm.invalid) { // If the form is invalid, do nothing
-       return;
+  // Getter for password control to simplify access in the template
+  get password() { return this.loginForm.get('password'); }
 
-         // Show loading indicator while logging in
+  // Handles form submission when the user attempts to login
+  async onSubmit() {
+    if (this.loginForm.invalid) { // If the form is invalid, do nothing
+      return;
+    }
+
     const loading = await this.loadingController.create({
       message: 'Logging in...'
     });
     await loading.present();
 
-      // Call the AuthService to attempt login with email and password
-      this.authService.login(this.email.value, this.password.value)
+    this.authService.login(this.email.value, this.password.value)
       .subscribe(
         async () => {
-          loading.dismiss(); // Dismiss loading indicator on success
-          this.router.navigateByUrl('/dashboard'); // Navigate to the dashboard on success
+          await loading.dismiss(); // Dismiss loading indicator on success
+          this.router.navigateByUrl('/dashboard'); // Navigate to the dashboard
         },
         async (error) => {
-          loading.dismiss(); // Dismiss loading indicator on error
-          // Show alert with error message if login fails
+          await loading.dismiss(); // Dismiss loading indicator on error
           const alert = await this.alertController.create({
             header: 'Login Failed',
             message: error?.error?.message || 'Please check your credentials', // Default error message
-            buttons: ['OK'] // 'OK' button to dismiss the alert
+            buttons: ['OK']
           });
           await alert.present();
         }
       );
   }
+
+  // Navigate to the registration page
+  goToRegister() {
+    this.router.navigateByUrl('/register');
+  }
+}
